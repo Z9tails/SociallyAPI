@@ -34,6 +34,6 @@ ReactionSchema.virtual("Reaction").get(function () {
   return this.replies.length;
 });
 
-const Reaction = model("Reaction", ReactionSchema);
+// const Reaction = model("Reaction", ReactionSchema);
 
-module.exports = Reaction;
+module.exports = ReactionSchema;
