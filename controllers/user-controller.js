@@ -2,7 +2,7 @@ const { User } = require('../models');
 
 const userController = {
   // get all user
-  getAllUser(req, res) {
+  getAllUsers(req, res) {
     User.find({})
       .populate({
         path: 'thoughts',
@@ -57,7 +57,21 @@ const userController = {
     User.findOneAndDelete({ _id: params.id })
       .then(dbUserData => res.json(dbUserData))
       .catch(err => res.json(err));
+  },
+
+ createFriends({ params, body }, res) {
+    User.findOneAndUpdate({_id: params.id}, {$push:{friends: body.friendId}}, {new: true} )
+      .then(dbUserData => res.json(dbUserData))
+      .catch(err => res.json(err));
+  },
+
+  deleteFriends({ params, body }, res) {
+    User.findOneAndUpdate({ _id: params.id }, {$pull:{friends: body.friendId}}, {new: true} )
+      .then(dbUserData => res.json(dbUserData))
+      .catch(err => res.json(err));
   }
+
 };
+
 
 module.exports = userController;
