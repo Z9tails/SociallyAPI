@@ -1,5 +1,4 @@
 const  User  = require('../models/User');
-const Thought = require('../models/Thought');
 
 const UserController = {
     // createUser
@@ -10,7 +9,7 @@ const UserController = {
   },
   
   
-  // get all user
+  // get all users
   getAllUsers(req, res) {
     User.find({})
       .populate({
@@ -76,6 +75,7 @@ const UserController = {
   },
 
   //friend functions
+  //add friend
  addFriend({ params }, res) {
     User.findOneAndUpdate({_id: params.id}, {$push:{friends: params.friendId}}, {new: true, runValidators: true})
       .then(dbUserData =>  {
@@ -91,7 +91,7 @@ const UserController = {
     User.findOneAndUpdate({ _id: params.id }, {$pull:{friends: body.friendId}}, {new: true} )
       .then(dbUserData => {
                 if(!dbUpdatedUser) {
-                    return res.status(404).json({ message: 'Not found in friends list!' })
+                    return res.status(404).json({ message: 'No friend found' })
                 }
          res.json(dbUserData);
               })

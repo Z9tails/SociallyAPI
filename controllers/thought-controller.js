@@ -77,7 +77,7 @@ const ThoughtController = {
     })
     .then(deletedThought => {
       if(!deletedThought) {
-        return res.status(404).json({ message: 'No thought found' })
+        return res.status(404).json({ message: 'No Thought found' })
       }
       res.json("Thought Deleted");
     })
@@ -93,7 +93,7 @@ const ThoughtController = {
     )
       .then(dbThoughtData => {
         if (!dbThoughtData) {
-          res.status(404).json({ message: 'No thought found' });
+          res.status(404).json({ message: 'No Thought found' });
           return;
         }
         res.json(dbThoughtData);
@@ -110,7 +110,7 @@ const ThoughtController = {
     )
       .then(deletedReaction => {
         if(!deletedReaction) {
-          return res.status(404).json({ message: 'No reaction found!' })
+          return res.status(404).json({ message: 'No Reaction found' })
         }
         res.json(deletedReaction);
       })
