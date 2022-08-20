@@ -1,26 +1,33 @@
 const router = require('express').Router();
+const { Router } = require('express');
 const {
+  getAllThought,
+  getThoughtById,
   addThought,
-  removeThought,
+  deleteThought,
+  updateThought,
   addReaction,
-  removeReaction,
-  getThoughtById
+  deleteReaction,
+  
 } = require('../../controllers/thought-controller');
+router
+.route('/')
+.get(getAllThought)
+.post(addThought);
 
-// /api/thought/
-// router.route('/').get(getThought);
-// router.route('/').get(getThoughtById);
-// router.route('/').post(addThought);//need to push id to associated user id
-// router.route('/').put(updateThoughtById);
-// router.route('/').delete(removeThought);
+router
+.route('/:thoughtID')
+.get(getThoughtById)
+.put(updateThought)
+.delete(deleteThought);
 
-// // /api/thought/<userId>/<thoughtId>
-// router
-//   .route('/:userId/:thoughtId')
-//   .put(addReaction)
-//   .delete(removeReaction);
+router
+.route('/:thoughtID/reactions')
+.post(addReaction);
 
-// // /api/thought/<userId>/<thoughtId>/<reactionId>
-// router.route('/:userId/:thoughtId/:reactionId').delete(removeReply);
+router
+.route('/:thoughtID/reactions/:reactionID')
+.delete(deleteReaction);
+
 
 module.exports = router;
