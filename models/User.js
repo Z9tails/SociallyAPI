@@ -1,7 +1,6 @@
-const { Schema, model, Types } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
+const { Schema, model } = require('mongoose');
 
-const userSchema = new Schema(
+const UserSchema = new Schema(
   {
     // set custom id to avoid confusion with parent comment _id
     username: {
@@ -10,17 +9,14 @@ const userSchema = new Schema(
       required: true,
       trimmed: true,
     },
+
     email: {
       type: String,
-      required: true,
       unique: true,
-      required: "Email address is required",
-      // validate: [validateEmail, "Please fill a valid email address"],
-      match: [
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        "Please fill a valid email address",
-      ],
+      required: true,
+      match: [/.+@.+\..+/, 'Enter a valid e-mail address'],
     },
+    
     thoughts: [
       {
         type: Schema.Types.ObjectId,
@@ -37,17 +33,17 @@ const userSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
+      getters: true,
     },
     id: false,
   }
 );
 
-
-
-userSchema.virtual('friendCount').get(function() {
+//Virtual
+UserSchema.virtual('friendCount').get(function() {
   return this.friends.length;
 });
 
-const User = model('User', userSchema);
+const User = model('User', UserSchema);
 
 module.exports = User;
