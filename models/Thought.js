@@ -40,6 +40,7 @@ const ReactionSchema = new Schema(
 
 const ThoughtSchema = new Schema(
   {
+    //creates thought with length limits.
     thoughtText: {
       type: String,
       required: true,
@@ -47,24 +48,31 @@ const ThoughtSchema = new Schema(
       minLength: 1,
       maxLength: 280,
     },
+
+    //assigns date/time to thought
     createdAt: {
       type: Date,
       default: Date.now,
       get: (createdAtVal) => dateFormat(createdAtVal)
     },
+
+    //assigns thought to username
     username: {
       type: String,
       required: true,
     },
+    //assigns reaction to thought
     reactions: [ReactionSchema],
     
   },
 );
-// get total 
+
+//get total number of reactions 
  ThoughtSchema.virtual('reactionCount').get(function() {
    return this.reactions.length;
  });
 
 const Thought = model('Thought', ThoughtSchema);
 
+//exports thought with text, time of creation, username, reaction to nosql.
 module.exports = Thought;

@@ -1,7 +1,7 @@
 const  User  = require('../models/User');
 
 const UserController = {
-    // createUser
+    //createUser
   createUser({ body }, res) {
     User.create(body)
       .then(dbUserData => res.json(dbUserData))
@@ -46,9 +46,7 @@ const UserController = {
       });
   },
 
-
-
-  // update user by id
+  //updates user by id
   updateUser({ params, body }, res) {
     User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
       .then(dbUserData => {
@@ -61,7 +59,7 @@ const UserController = {
       .catch(err => res.json(err));
   },
 
-  // delete user
+  //deletes user
   deleteUser({ params }, res) {
     User.findOneAndDelete({ _id: params.id })
       .then(dbUserData => {
@@ -74,7 +72,6 @@ const UserController = {
       .catch(err => res.json(err));
   },
 
-  //friend functions
   //add friend
  addFriend({ params }, res) {
     User.findOneAndUpdate({_id: params.id}, {$push:{friends: params.friendId}}, {new: true, runValidators: true})
@@ -86,7 +83,7 @@ const UserController = {
               })
       .catch(err => res.json(err));
   },
-
+//delete friend
   removeFriend({ params, }, res) {
     User.findOneAndUpdate({ _id: params.id }, {$pull:{friends: body.friendId}}, {new: true} )
       .then(dbUserData => {
@@ -100,5 +97,5 @@ const UserController = {
 
 };
 
-
+//exports Esercontroller
 module.exports = UserController;
