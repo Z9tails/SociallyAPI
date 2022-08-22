@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
 // retrieval
 const {
@@ -9,24 +9,24 @@ const {
   deleteUser,
   addFriend,
   removeFriend
-} = require('../../controllers/user-controller');
+} = require("../../controllers/user-controller");
 
 // api/user routing
 router
-  .route('/')
+  .route("/")
   .get(getAllUsers)
   .post(createUser);
   
 // router id routing   
 router
-  .route('/:id')
+  .route("/:id")
   .get(getUserById)
   .put(updateUser)
   .delete(deleteUser);
 
 //router friend
 router
-  .route ('/:userid/friends/:friendId')
+  .route ("/:userId/friends/:friendId")
   .post(addFriend)
   .delete(removeFriend);
 
